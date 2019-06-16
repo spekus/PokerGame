@@ -42,10 +42,22 @@ public class App {
     public static int evaluateHand(List<Card> cardsInHand) {
         if (isThisRoyalFlush(cardsInHand)) {
             return 800;
-        } else if (isThisFlush(cardsInHand)) {
+        } else if (isThisStraightFlush(cardsInHand)) {
             return 50;
-        } else if (isThisPair(cardsInHand)) {
-             return 2;
+        } else if (isThisFourOfTheKind(cardsInHand)) {
+            return 25;
+        } else if (isThisFullHouse(cardsInHand)) {
+            return 9;
+        } else if (doCardsMatchSuit(cardsInHand)) { //checks for flush
+            return 6;
+        } else if (areAllCardsInARow(cardsInHand)) { //checks for straight
+            return 4;
+        } else if (isThisThreeOfTheKind(cardsInHand)) {
+            return 3;
+        } else if (isThisDoublePair(cardsInHand)) {
+            return 2;
+        } else if (isThisJackOrBetter(cardsInHand)) {
+            return 1;
         }
 
         return 0;
@@ -53,18 +65,45 @@ public class App {
 
     }
 
-    private static boolean isThisPair(List<Card> cardsInHand) {
-        // count the frequency of the word "code"
-        Set<Integer> uniqueRanks = cardsInHand.stream().map(Card::getRank).collect(Collectors.toSet());
-        List<Integer> cardValue = cardsInHand.stream().map(Card::getRank).collect(Collectors.toList());
-        List<Integer> counts = uniqueRanks.stream().map(rank -> Collections.frequency(cardValue, rank)).collect(Collectors.toList();
-        if(counts.contains(2)){
-            return true;
-        }
-        return false;
+    private static boolean isThisJackOrBetter(List<Card> cardsInHand) {
+        return cardsInHand.stream().map(card->card.getRank()).anyMatch(rank-> rank >= 10);
     }
 
-    private static boolean isThisFlush(List<Card> cardsInHand) {
+
+    private static boolean isThisFourOfTheKind(List<Card> cardsInHand) {
+        Set<Integer> uniqueRanks = cardsInHand.stream().map(Card::getRank).collect(Collectors.toSet());
+        List<Integer> cardValue = cardsInHand.stream().map(Card::getRank).collect(Collectors.toList());
+        List<Integer> counts =
+                uniqueRanks.stream().map(rank -> Collections.frequency(cardValue, rank)).collect(Collectors.toList());
+        return counts.contains(4);
+    }
+
+    private static boolean isThisThreeOfTheKind(List<Card> cardsInHand) {
+        Set<Integer> uniqueRanks = cardsInHand.stream().map(Card::getRank).collect(Collectors.toSet());
+        List<Integer> cardValue = cardsInHand.stream().map(Card::getRank).collect(Collectors.toList());
+        List<Integer> numberOfDuplicatesForEachRank =
+                uniqueRanks.stream().map(rank -> Collections.frequency(cardValue, rank)).collect(Collectors.toList());
+        return numberOfDuplicatesForEachRank.contains(3);
+    }
+
+
+    private static boolean isThisDoublePair(List<Card> cardsInHand) {
+        Set<Integer> uniqueRanks = cardsInHand.stream().map(Card::getRank).collect(Collectors.toSet());
+        List<Integer> cardValue = cardsInHand.stream().map(Card::getRank).collect(Collectors.toList());
+        List<Integer> numberOfDuplicatesForEachRank =
+                uniqueRanks.stream().map(rank -> Collections.frequency(cardValue, rank)).collect(Collectors.toList());
+        return Collections.frequency(numberOfDuplicatesForEachRank, 2) == 2;
+    }
+
+    private static boolean isThisFullHouse(List<Card> cardsInHand) {
+        Set<Integer> uniqueRanks = cardsInHand.stream().map(Card::getRank).collect(Collectors.toSet());
+        List<Integer> cardValue = cardsInHand.stream().map(Card::getRank).collect(Collectors.toList());
+        List<Integer> counts =
+                uniqueRanks.stream().map(rank -> Collections.frequency(cardValue, rank)).collect(Collectors.toList());
+        return counts.contains(2) && counts.contains(3);
+    }
+
+    private static boolean isThisStraightFlush(List<Card> cardsInHand) {
         return areAllCardsInARow(cardsInHand) && doCardsMatchSuit(cardsInHand);
     }
 

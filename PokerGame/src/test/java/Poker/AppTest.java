@@ -79,6 +79,7 @@ public class AppTest {
 
     @Test
     public void royalFlush(){
+        // TODO need to have a method witch would make card list creation more convenient
         List<Card> cards = List.of(new Card(10, Suits.HEART), new Card(11, Suits.HEART), new Card(12
                 , Suits.HEART) ,new Card(13, Suits.HEART), new Card(14, Suits.HEART));
         assertEquals(800, evaluateHand(cards));
@@ -97,6 +98,65 @@ public class AppTest {
                 , Suits.DIAMOND) ,new Card(11, Suits.DIAMOND), new Card(12, Suits.DIAMOND));
         assertEquals(50, evaluateHand(cards));
     }
+
+    @Test
+    public void flush(){
+        List<Card> cards = List.of(new Card(4, Suits.DIAMOND), new Card(6, Suits.DIAMOND), new Card(10
+                , Suits.DIAMOND) ,new Card(11, Suits.DIAMOND), new Card(12, Suits.DIAMOND));
+        assertEquals(6, evaluateHand(cards));
+    }
+
+    @Test
+    public void straight(){
+        List<Card> cards = List.of(new Card(4, Suits.HEART), new Card(5, Suits.DIAMOND), new Card(6
+                , Suits.DIAMOND) ,new Card(7, Suits.DIAMOND), new Card(8, Suits.DIAMOND));
+        assertEquals(4, evaluateHand(cards));
+    }
+
+    @Test
+    public void fourOfTheKind(){
+        List<Card> cards = List.of(new Card(8, Suits.DIAMOND), new Card(8, Suits.HEART), new Card(8
+                , Suits.DIAMOND) ,new Card(8, Suits.DIAMOND), new Card(12, Suits.DIAMOND));
+        assertEquals(25, evaluateHand(cards));
+    }
+
+    @Test
+    public void fullHouse(){
+        List<Card> cards = List.of(new Card(8, Suits.DIAMOND), new Card(8, Suits.HEART), new Card(8
+                , Suits.DIAMOND) ,new Card(12, Suits.DIAMOND), new Card(12, Suits.DIAMOND));
+        assertEquals(9, evaluateHand(cards));
+    }
+
+    @Test
+    public void threeOfTheKind(){
+        List<Card> cards = List.of(new Card(8, Suits.DIAMOND), new Card(8, Suits.HEART), new Card(8
+                , Suits.DIAMOND) ,new Card(11, Suits.DIAMOND), new Card(12, Suits.DIAMOND));
+        assertEquals(3, evaluateHand(cards));
+    }
+
+    @Test
+    public void twoPairsReturnTwo(){
+        List<Card> cards = List.of(new Card(3, Suits.DIAMOND), new Card(8, Suits.HEART), new Card(8
+                , Suits.DIAMOND) ,new Card(12, Suits.DIAMOND), new Card(12, Suits.DIAMOND));
+        assertEquals(2, evaluateHand(cards));
+    }
+
+    @Test
+    public void jackOrHigher(){
+        List<Card> cards = List.of(new Card(3, Suits.DIAMOND), new Card(8, Suits.HEART), new Card(8
+                , Suits.DIAMOND) ,new Card(2, Suits.DIAMOND), new Card(10, Suits.DIAMOND));
+        assertEquals(1, evaluateHand(cards));
+    }
+
+
+    @Test
+    public void aPairReturnZero(){
+        List<Card> cards = List.of(new Card(8, Suits.DIAMOND), new Card(8, Suits.HEART), new Card(2
+                , Suits.DIAMOND) ,new Card(3, Suits.DIAMOND), new Card(4, Suits.DIAMOND));
+        assertEquals(0, evaluateHand(cards));
+    }
+
+
 
 
 
