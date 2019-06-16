@@ -7,8 +7,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static Poker.App.evaluateHand;
-import static Poker.App.isThisRoyalFlush;
+import static Poker.cardEvaluation.evaluateHand;
 import static org.junit.Assert.*;
 
 /**
@@ -144,7 +143,7 @@ public class AppTest {
     @Test
     public void jackOrHigher(){
         List<Card> cards = List.of(new Card(3, Suits.DIAMOND), new Card(8, Suits.HEART), new Card(8
-                , Suits.DIAMOND) ,new Card(2, Suits.DIAMOND), new Card(10, Suits.DIAMOND));
+                , Suits.DIAMOND) ,new Card(2, Suits.DIAMOND), new Card(11, Suits.DIAMOND));
         assertEquals(1, evaluateHand(cards));
     }
 
