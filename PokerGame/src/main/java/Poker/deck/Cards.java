@@ -9,7 +9,6 @@ import java.util.stream.IntStream;
 @Data
 public class Cards {
     Collection<Suits> cardSuits = Arrays.asList(Suits.DIAMOND, Suits.HEART,Suits.DIAMOND, Suits.SPADE);
-    Collection<Integer> cardRank = Arrays.asList(2,3,4,5,6,7,8,9,10,11,12,13,14);
     List<Card> cardsInDeck;
     List<Card> cardsInHand;
     Random rand = new Random();
@@ -28,10 +27,6 @@ public class Cards {
             startingCard= 2;
         }
         return returnCards;
-//        cardsInDeck = cardSuits.stream().map(suit -> new Card(suit)).collect(Collectors.toList());
-//        cardsInDeck.forEach(card -> card.setRank());
-//        Card korta = new Card(2, "Club");
-
     }
 
     public void drawCards(int cardsToDraw) {
