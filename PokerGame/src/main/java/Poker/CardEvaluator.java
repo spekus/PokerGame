@@ -8,8 +8,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class cardEvaluation {
-    public static int getHandValue(List<Card> cardsInHand) {
+class CardEvaluator {
+    static int getHandValue(List<Card> cardsInHand) {
         if (isThisRoyalFlush(cardsInHand)) {
             return 800;
         } else if (isThisStraightFlush(cardsInHand)) {
@@ -62,7 +62,7 @@ public class cardEvaluation {
         return uniqueRanks.stream().map(rank -> Collections.frequency(cardValue, rank)).collect(Collectors.toList());
     }
 
-    public static boolean isThisRoyalFlush(List<Card> cardsInHand) {
+    private static boolean isThisRoyalFlush(List<Card> cardsInHand) {
         return doCardsMatchSuit(cardsInHand) && areCardsRoyal(cardsInHand);
     }
 
@@ -83,7 +83,7 @@ public class cardEvaluation {
         return CardGroupsInARow == 4;
     }
 
-    public static boolean doCardsMatchSuit(List<Card> cardsInHand) {
+    private static boolean doCardsMatchSuit(List<Card> cardsInHand) {
         return cardsInHand.stream().map(card -> card.getSuit()).distinct().count() == 1;
     }
 }
