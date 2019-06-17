@@ -1,5 +1,6 @@
 package Poker.deck;
 
+import Poker.enums.Suits;
 import lombok.Data;
 
 @Data

@@ -1,5 +1,6 @@
 package Poker.deck;
 
+import Poker.enums.Suits;
 import lombok.Data;
 
 import java.util.*;
@@ -7,36 +8,37 @@ import java.util.*;
 import java.util.stream.IntStream;
 
 @Data
-public class Cards {
+public class CardDeck {
+
     Collection<Suits> cardSuits = Arrays.asList(Suits.DIAMOND, Suits.HEART,Suits.DIAMOND, Suits.SPADE);
     List<Card> cardsInDeck;
     List<Card> cardsInHand;
     Random rand = new Random();
 
-    public Cards(int lowestCard, int higherstCard){
-        this.cardsInDeck = generateDeck(lowestCard, higherstCard);
+    public CardDeck(int lowestCard, int highestCard){
+        this.cardsInDeck = generateDeck(lowestCard, highestCard);
         this.cardsInHand = new ArrayList<>();
     }
 
     private List<Card> generateDeck(int startingCard, int lastCard) {
-        var returnCards = new ArrayList<Card>();
+        var deck = new ArrayList<Card>();
         for (Suits suit:cardSuits) {
-            for(;startingCard <= lastCard; startingCard++){
-                returnCards.add(new Card(startingCard, suit));
+            int counter = startingCard;
+            for(;counter <= lastCard; counter++){
+                deck.add(new Card(counter, suit));
             }
-            startingCard= 2;
         }
-        return returnCards;
+        return deck;
     }
 
     public void drawCards(int cardsToDraw) {
             IntStream.range(0, cardsToDraw)
-                    .forEach(x -> moveRandomCardToHand());
+                    .mapToObj(drawRequest -> getRandomCardFromDeck())
+                    .forEach(card -> moveCardFromDeckToHand(card));
     }
 
-    private void moveRandomCardToHand(){
-        Card randomCard = cardsInDeck.get(rand.nextInt(cardsInDeck.size()));
-        moveCardFromDeckToHand(randomCard);
+    private Card getRandomCardFromDeck(){
+        return cardsInDeck.get(rand.nextInt(cardsInDeck.size()));
     }
 
     private void moveCardFromDeckToHand(Card cardToDraw) {
@@ -50,7 +52,7 @@ public class Cards {
     }
 
     public void shuffleDeck() {
-        cardsInHand.forEach(card -> cardsInDeck.add(card));
+        cardsInDeck.addAll(cardsInHand);
         cardsInHand.clear();
     }
 }

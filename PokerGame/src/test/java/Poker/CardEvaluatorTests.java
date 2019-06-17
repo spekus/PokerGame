@@ -1,7 +1,7 @@
 package Poker;
 
 import Poker.deck.Card;
-import Poker.deck.Suits;
+import Poker.enums.Suits;
 import org.junit.Test;
 
 import java.util.List;
