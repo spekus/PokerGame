@@ -5,6 +5,9 @@ import lombok.Data;
 
 @Data
 public class Card {
+
+    //TODO this should be implementation of interface, this particular implementation would be for cards displayed in english.
+
     private Suits suit;
     private int rank;
 

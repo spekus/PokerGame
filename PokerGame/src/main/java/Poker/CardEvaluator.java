@@ -68,7 +68,7 @@ class CardEvaluator {
 
     private static boolean areCardsRoyal(List<Card> cardsInHand) {
         final int ROYAL_FLUSH_VALUE = 60;
-        return cardsInHand.stream().map(card -> card.getRank()).distinct().mapToInt(x -> x).sum() == ROYAL_FLUSH_VALUE;
+        return cardsInHand.stream().map(Card::getRank).distinct().mapToInt(x -> x).sum() == ROYAL_FLUSH_VALUE;
     }
 
     private static boolean isThisStraightFlush(List<Card> cardsInHand) {
@@ -84,6 +84,6 @@ class CardEvaluator {
     }
 
     private static boolean doCardsMatchSuit(List<Card> cardsInHand) {
-        return cardsInHand.stream().map(card -> card.getSuit()).distinct().count() == 1;
+        return cardsInHand.stream().map(Card::getSuit).distinct().count() == 1;
     }
 }

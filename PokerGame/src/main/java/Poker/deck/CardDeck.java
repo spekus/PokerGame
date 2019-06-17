@@ -10,6 +10,11 @@ import java.util.stream.IntStream;
 @Data
 public class CardDeck {
 
+    /**
+     * TODO this class should be part of Deck interface, this particular implementation would be for standard deck
+     * which has no jacks and 4 colors, maybe some other card games use other kind of setups.
+     */
+
     Collection<Suits> cardSuits = Arrays.asList(Suits.DIAMOND, Suits.HEART,Suits.DIAMOND, Suits.SPADE);
     List<Card> cardsInDeck;
     List<Card> cardsInHand;
@@ -34,7 +39,7 @@ public class CardDeck {
     public void drawCards(int cardsToDraw) {
             IntStream.range(0, cardsToDraw)
                     .mapToObj(drawRequest -> getRandomCardFromDeck())
-                    .forEach(card -> moveCardFromDeckToHand(card));
+                    .forEach(this::moveCardFromDeckToHand);
     }
 
     private Card getRandomCardFromDeck(){
