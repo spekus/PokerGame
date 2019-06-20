@@ -6,10 +6,10 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static Poker.CardEvaluator.getHandValue;
+import static Poker.HandEvaluatorKt.getHandValue;
 import static org.junit.Assert.assertEquals;
 
-public class CardEvaluatorTests {
+public class CombinationCheckerTests {
 
     @Test
     public void royalFlush() {

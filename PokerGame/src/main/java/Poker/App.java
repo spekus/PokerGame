@@ -7,8 +7,6 @@ import java.util.Comparator;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import static Poker.CardEvaluator.getHandValue;
-
 public class App {
     final static int BET_SIZE = 1;
     final static int FULL_HAND_SIZE = 5;
@@ -54,7 +52,7 @@ public class App {
         cardDeck.drawCards(FULL_HAND_SIZE - cardDeck.getCardsInHand().size());
         cardDeck.getCardsInHand().sort(Comparator.comparing(Card::getRank));
         System.out.println("FINAL HAND: " + cardDeck.getCardsInHand().toString());
-        int pointsWon = getHandValue(cardDeck.getCardsInHand());
+        int pointsWon = HandEvaluatorKt.getHandValue(cardDeck.getCardsInHand());
         totalPoints = totalPoints + pointsWon - BET_SIZE;
         System.out.println(String.format("You won %s amount of points, cost of bet - %s, total points are %s",
                 pointsWon, BET_SIZE, totalPoints));
@@ -73,6 +71,4 @@ public class App {
             }
         }
     }
-
-
 }
