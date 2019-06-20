@@ -4,7 +4,7 @@ import Poker.enums.Suits;
 import lombok.Data;
 
 import java.util.*;
-
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Data
@@ -15,34 +15,35 @@ public class CardDeck {
      * which has no jacks and 4 colors, maybe some other card games use other kind of setups.
      */
 
-    Collection<Suits> cardSuits = Arrays.asList(Suits.DIAMOND, Suits.HEART,Suits.DIAMOND, Suits.SPADE);
     List<Card> cardsInDeck;
     List<Card> cardsInHand;
     Random rand = new Random();
 
-    public CardDeck(int lowestCard, int highestCard){
-        this.cardsInDeck = generateDeck(lowestCard, highestCard);
+    public CardDeck(int lowestCard, int highestCard) {
+        this.cardsInDeck = generateFullDeck(lowestCard, highestCard);
         this.cardsInHand = new ArrayList<>();
     }
 
-    private List<Card> generateDeck(int startingCard, int lastCard) {
-        var deck = new ArrayList<Card>();
-        for (Suits suit:cardSuits) {
-            int counter = startingCard;
-            for(;counter <= lastCard; counter++){
-                deck.add(new Card(counter, suit));
-            }
-        }
-        return deck;
+    private List<Card> generateFullDeck(int startingCard, int lastCard) {
+        return Arrays.stream(Suits.values())
+                .map(suit -> generateFullSuit(startingCard, lastCard, suit))
+                .flatMap(Collection::stream)
+                .collect(Collectors.toList());
+    }
+
+    private List<Card> generateFullSuit(int startingCard, int lastCard, Suits suit) {
+        return IntStream.rangeClosed(startingCard, lastCard)
+                .mapToObj(x -> new Card(x, suit))
+                .collect(Collectors.toList());
     }
 
     public void drawCards(int cardsToDraw) {
-            IntStream.range(0, cardsToDraw)
-                    .mapToObj(drawRequest -> getRandomCardFromDeck())
-                    .forEach(this::moveCardFromDeckToHand);
+        IntStream.range(0, cardsToDraw)
+                .mapToObj(drawRequest -> getRandomCardFromDeck())
+                .forEach(this::moveCardFromDeckToHand);
     }
 
-    private Card getRandomCardFromDeck(){
+    private Card getRandomCardFromDeck() {
         return cardsInDeck.get(rand.nextInt(cardsInDeck.size()));
     }
 
