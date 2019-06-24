@@ -1,5 +1,6 @@
 package Poker.deck;
 
+import Poker.deck.Card;
 import Poker.enums.Suits;
 import lombok.Data;
 

@@ -1,6 +1,7 @@
-package Poker;
+package Poker.service;
 
 import Poker.deck.Card;
+import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+@Service
 class CombinationChecker {
     static boolean isThisJackOrBetter(List<Card> cardsInHand) {
         return cardsInHand.stream().map(Card::getRank).anyMatch(rank -> rank >= 11);
@@ -56,7 +58,8 @@ class CombinationChecker {
         long CardGroupsInARow = IntStream.range(0, cardsInHand.size() - 1)
                 .filter(i -> cardsInHand.get(i + 1).getRank() - cardsInHand.get(i).getRank() == 1)
                 .count();
-        // a bit counter intuitive, but if 5 cards are in a row, they make 4 groups of each having 2 members 1 number apart
+        // a bit counter intuitive, but if 5 cards are in a row, they make 4 groups of each having 2 members 1 number
+        // apart
         return CardGroupsInARow == 4;
     }
 

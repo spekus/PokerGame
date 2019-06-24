@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-import static Poker.HandEvaluatorKt.getHandValue;
+import static Poker.service.HandEvaluatorKt.getHandValue;
 import static org.junit.Assert.assertEquals;
 
 public class CombinationCheckerTests {

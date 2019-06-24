@@ -1,4 +1,4 @@
-package Poker
+package Poker.service
 
 import Poker.deck.Card
 
